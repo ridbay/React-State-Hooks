@@ -49,8 +49,25 @@ const App = () => {
       }
     }))
   }
+
+  const handleShowAll =() =>{
+
+  }
+
+  const handleShowComplete = () => {
+
+  }
+
+  const handleShowIncomplete = () =>{
+
+  }
   return (
     <div className="App">
+      <div>
+        <button type='button' onClick={handleShowAll}>Show All</button>
+        <button type='button' onClick={handleShowComplete}>Show Complete</button>
+        <button type='button' onClick={handleShowIncomplete}>Show Incomplete</button>
+      </div>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
