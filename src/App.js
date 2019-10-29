@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
-import {filterReducer} from './reducer'
+import {filterReducer} from './redux/reducer'
 
 
 const initialTodos = [
