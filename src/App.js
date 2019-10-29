@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
-import {filterReducer} from './redux/reducer'
+import { filterReducer, todoReducer } from './redux/reducer';
 
 
 const initialTodos = [
@@ -25,8 +25,9 @@ const initialTodos = [
 
 const App = () => {
   const [task, setTask] = useState('');
-  const [todos, setTodos] = useState(initialTodos);
+  // const [todos, setTodos] = useState(initialTodos);
   const [filter, dispatchFilter] = useReducer(filterReducer, 'ALL');
+  const [todos, dispatchTodos] = useReducer(todoReducer, initialTodos);
 
 
 
@@ -37,44 +38,40 @@ const App = () => {
 
   const handleSubmit = event => {
     if (task) {
-      console.log('todos', ...todos)
-      setTodos(todos.concat({ id: uuid(), task, complete: false }))
+      dispatchTodos({ type: 'ADD_TODO', task, id: uuid() });
     }
     setTask('');
 
     event.preventDefault();
   }
 
-  const handleChangeCheckbox = id => {
-    setTodos(todos.map(todo => {
-      if (todo.id === id) {
-        return { ...todo, complete: !todo.complete }
-      } else {
-        return todo;
-      }
-    }))
+  const handleChangeCheckbox = todo => {
+    dispatchTodos({
+      type: todo.complete ? 'UNDO_TO' : 'DO_TODO',
+      id: todo.id
+    })
   }
 
-  const handleShowAll =() =>{
-    dispatchFilter({type: 'SHOW_ALL'})
+  const handleShowAll = () => {
+    dispatchFilter({ type: 'SHOW_ALL' })
   }
 
   const handleShowComplete = () => {
-    dispatchFilter({type: 'SHOW_COMPLETE'})
+    dispatchFilter({ type: 'SHOW_COMPLETE' })
   }
 
-  const handleShowIncomplete = () =>{
-    dispatchFilter({type: 'SHOW_INCOMPLETE'})
+  const handleShowIncomplete = () => {
+    dispatchFilter({ type: 'SHOW_INCOMPLETE' })
   }
 
   const filteredTodos = todos.filter(todo => {
-    if(filter === 'ALL'){
+    if (filter === 'ALL') {
       return true;
     }
-    if(filter=== 'COMPLETE' && todo.complete){
+    if (filter === 'COMPLETE' && todo.complete) {
       return true;
     }
-    if(filter=== 'INCOMPLETE' && !todo.complete){
+    if (filter === 'INCOMPLETE' && !todo.complete) {
       return true
     }
     return false;
@@ -91,7 +88,7 @@ const App = () => {
       <ul>
         {filteredTodos.map((todo) => (
           <li key={todo.id}>
-            <input type='checkbox' checked={todo.complete} onChange={() => handleChangeCheckbox(todo.id)} />
+            <input type='checkbox' checked={todo.complete} onChange={() => handleChangeCheckbox(todo)} />
             {todo.task}
           </li>
         ))}
