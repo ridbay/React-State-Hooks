@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
+import uuid from 'uuid/v4';
 import './App.css';
 
 
 const initialTodos = [
   {
-    id: 'a',
+    id: uuid(),
     task: 'Learn React',
     complete: true,
   },
   {
-    id: 'b',
+    id: uuid(),
     task: 'Learn Firebase',
     complete: true,
   },
   {
-    id: 'c',
+    id: uuid(),
     task: 'Learn GraphQL',
     complete: false,
   },
@@ -23,19 +24,33 @@ const initialTodos = [
 
 const App = () => {
   const [task, setTask] = useState('');
+  const[todos, setTodos] = useState(initialTodos)
   const handleChangeInput = (event) => {
-
+    setTask(event.target.value);
+    
   }
+
+   const handleSubmit= event =>{
+    if(task){
+      console.log('todos', ...todos)
+      setTodos(todos.concat({id: uuid(), task, complete: false}))
+    }
+    setTask('');
+
+    event.preventDefault();
+   }
   return (
     <div className="App">
       <ul>
-        {initialTodos.map(todo => (
-          <li key={todo.id}>
-            <lable>{todo.task}</lable>
-          </li>
+        {todos.map((todo)=> (
+          <li key={todo.id}>{todo.task}</li>
         ))}
       </ul>
-      <input type='text' value={task} onChange={handleChangeInput} />
+       <form onSubmit={handleSubmit}>
+       <input type='text' value={task} onChange={handleChangeInput} />
+       <button type='submit'>Add Todo</button>
+       </form>
+      
     </div>
   );
 }
