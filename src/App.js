@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
+import {filterReducer} from './reducer'
 
 
 const initialTodos = [
@@ -24,7 +25,11 @@ const initialTodos = [
 
 const App = () => {
   const [task, setTask] = useState('');
-  const [todos, setTodos] = useState(initialTodos)
+  const [todos, setTodos] = useState(initialTodos);
+  const [filter, dispatchFilter] = useReducer(filterReducer, 'ALL');
+
+
+
   const handleChangeInput = (event) => {
     setTask(event.target.value);
 
@@ -51,16 +56,31 @@ const App = () => {
   }
 
   const handleShowAll =() =>{
-
+    dispatchFilter({type: 'SHOW_ALL'})
   }
 
   const handleShowComplete = () => {
-
+    dispatchFilter({type: 'SHOW_COMPLETE'})
   }
 
   const handleShowIncomplete = () =>{
-
+    dispatchFilter({type: 'SHOW_INCOMPLETE'})
   }
+
+  const filteredTodos = todos.filter(todo => {
+    if(filter === 'ALL'){
+      return true;
+    }
+    if(filter=== 'COMPLETE' && todo.complete){
+      return true;
+    }
+    if(filter=== 'INCOMPLETE' && !todo.complete){
+      return true
+    }
+    return false;
+  })
+
+
   return (
     <div className="App">
       <div>
@@ -69,7 +89,7 @@ const App = () => {
         <button type='button' onClick={handleShowIncomplete}>Show Incomplete</button>
       </div>
       <ul>
-        {todos.map((todo) => (
+        {filteredTodos.map((todo) => (
           <li key={todo.id}>
             <input type='checkbox' checked={todo.complete} onChange={() => handleChangeCheckbox(todo.id)} />
             {todo.task}
