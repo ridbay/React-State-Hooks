@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, {useState, useReducer, createContext } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
 import { filterReducer, todoReducer } from './redux/reducer';
@@ -25,6 +25,7 @@ const initialTodos = [
   },
 ];
 
+const TodoContext = createContext(null);
 
 const App = () => {
  
@@ -50,11 +51,11 @@ const App = () => {
 
 
   return (
-    <div className="App">
+    <TodoContext.Provider value={dispatchTodos}>
      <Filter dispatch={dispatchFilter} />
      <TodoList dispatch={dispatchTodos} todos={filteredTodos}/>
      <AddTodo dispatch={dispatchTodos}/>
-    </div>
+    </TodoContext.Provider>
   );
 }
 
