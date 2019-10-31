@@ -11,16 +11,19 @@ const initialTodos = [
   {
     id: uuid(),
     task: 'Learn React',
+    task2: 'Learn React2',
     complete: true,
   },
   {
     id: uuid(),
     task: 'Learn Firebase',
+    task2: 'Learn Firebase2',
     complete: true,
   },
   {
     id: uuid(),
     task: 'Learn GraphQL',
+    task2: 'Learn GraphQL2',
     complete: false,
   },
 ];

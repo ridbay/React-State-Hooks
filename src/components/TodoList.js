@@ -19,7 +19,7 @@ const TodoItem = ({ todo }) => {
     return (
         <li>
             <input type='checkbox' checked={todo.complete} onChange={handleChange} />
-            {todo.task}
+            {todo.task} | {todo.task2}
         </li>
     )
 }

@@ -32,6 +32,7 @@ export const todoReducer = (state, action)=>{
         case 'ADD_TODO':
             return state.concat({
                 task: action.task,
+                task2: action.task2,
                 id: action.id,
                 complete: false
             })
