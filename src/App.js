@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
 import { filterReducer, todoReducer } from './redux/reducer';
