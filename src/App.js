@@ -25,7 +25,7 @@ const initialTodos = [
   },
 ];
 
-const TodoContext = createContext(null);
+ export const TodoContext = createContext(null);
 
 const App = () => {
  

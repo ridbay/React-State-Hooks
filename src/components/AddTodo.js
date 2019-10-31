@@ -1,5 +1,8 @@
 import React, { useState, useContext} from 'react';
 import uuid from 'uuid/v4';
+import {TodoContext} from '../App'
+
+
 
 const AddTodo = () => {
     const dispatch = useContext(TodoContext);
