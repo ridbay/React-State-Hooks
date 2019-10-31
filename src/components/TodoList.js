@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {TodoContext} from '../App'
 
-
-const TodoList = ({ dispatch, todos }) => (
+const TodoList = ({ todos }) => (
     <ul>
         {todos.map(todo => (
-            <TodoItem key={todo.id} dispatch={dispatch} todo={todo} />
+            <TodoItem key={todo.id} todo={todo} />
         ))}
     </ul>
 )
 
-const TodoItem = ({ dispatch, todo }) => {
+const TodoItem = ({ todo }) => {
+    const dispatch = useContext(TodoContext);
     const handleChange = () =>
         dispatch({
             type: todo.complete ? 'UNDO_TODO' : 'DO_TODO',
