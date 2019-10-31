@@ -2,6 +2,9 @@ import React, { useState, useReducer } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
 import { filterReducer, todoReducer } from './redux/reducer';
+import Filter from './components/Filter';
+import AddTodo from './components/AddTodo';
+import TodoList from './components/TodoList'
 
 
 const initialTodos = [
@@ -52,17 +55,7 @@ const App = () => {
     })
   }
 
-  const handleShowAll = () => {
-    dispatchFilter({ type: 'SHOW_ALL' })
-  }
-
-  const handleShowComplete = () => {
-    dispatchFilter({ type: 'SHOW_COMPLETE' })
-  }
-
-  const handleShowIncomplete = () => {
-    dispatchFilter({ type: 'SHOW_INCOMPLETE' })
-  }
+  
 
   const filteredTodos = todos.filter(todo => {
     if (filter === 'ALL') {
@@ -80,24 +73,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <div>
-        <button type='button' onClick={handleShowAll}>Show All</button>
-        <button type='button' onClick={handleShowComplete}>Show Complete</button>
-        <button type='button' onClick={handleShowIncomplete}>Show Incomplete</button>
-      </div>
-      <ul>
-        {filteredTodos.map((todo) => (
-          <li key={todo.id}>
-            <input type='checkbox' checked={todo.complete} onChange={() => handleChangeCheckbox(todo)} />
-            {todo.task}
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={handleSubmit}>
-        <input type='text' value={task} onChange={handleChangeInput} />
-        <button type='submit'>Add Todo</button>
-      </form>
-
+     
     </div>
   );
 }
