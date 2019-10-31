@@ -27,7 +27,6 @@ const initialTodos = [
 
 
 const App = () => {
-  const [task, setTask] = useState('');
  
   const [filter, dispatchFilter] = useReducer(filterReducer, 'ALL');
   const [todos, dispatchTodos] = useReducer(todoReducer, initialTodos);
