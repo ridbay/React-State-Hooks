@@ -53,8 +53,8 @@ const App = () => {
   return (
     <TodoContext.Provider value={dispatchTodos}>
      <Filter dispatch={dispatchFilter} />
-     <TodoList dispatch={dispatchTodos} todos={filteredTodos}/>
-     <AddTodo dispatch={dispatchTodos}/>
+     <TodoList todos={filteredTodos}/>
+     <AddTodo />
     </TodoContext.Provider>
   );
 }

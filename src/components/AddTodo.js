@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import uuid from 'uuid/v4';
 
+const AddTodo = () => {
+    const dispatch = useContext(TodoContext);
 
-const AddTodo = ({ dispatch }) => {
     const [task, setTask] = useState('');
 
     const handleSubmit = event => {
