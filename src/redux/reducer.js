@@ -7,7 +7,7 @@ export const filterReducer = (state, action) => {
         case 'SHOW_INCOMPLETE':
             return 'INCOMPLETE';
         default:
-            throw new Error();
+            return state;
     }
 }
 
@@ -38,6 +38,6 @@ export const todoReducer = (state, action)=>{
             })
     
         default:
-            throw new Error();
+            return state;
     }
 }

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {TodoContext} from '../App'
+import {DispatchContext} from '../App'
 
 const TodoList = ({ todos }) => (
     <ul>
@@ -10,7 +10,7 @@ const TodoList = ({ todos }) => (
 )
 
 const TodoItem = ({ todo }) => {
-    const dispatch = useContext(TodoContext);
+    const dispatch = useContext(DispatchContext);
     const handleChange = () =>
         dispatch({
             type: todo.complete ? 'UNDO_TODO' : 'DO_TODO',

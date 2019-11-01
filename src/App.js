@@ -28,14 +28,15 @@ const initialTodos = [
   },
 ];
 
- export const TodoContext = createContext(null);
+ export const DispatchContext = createContext(null);
 
 const App = () => {
  
   const [filter, dispatchFilter] = useReducer(filterReducer, 'ALL');
   const [todos, dispatchTodos] = useReducer(todoReducer, initialTodos);
 
-
+const dispatch = action =>
+[dispatchTodos, dispatchFilter].forEach(fn => fn(action));
 
 
 
@@ -54,11 +55,11 @@ const App = () => {
 
 
   return (
-    <TodoContext.Provider value={dispatchTodos}>
-     <Filter dispatch={dispatchFilter} />
+    <DispatchContext.Provider value={dispatch}>
+     <Filter />
      <TodoList todos={filteredTodos}/>
      <AddTodo />
-    </TodoContext.Provider>
+    </DispatchContext.Provider>
   );
 }
 
