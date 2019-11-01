@@ -1,4 +1,4 @@
-import React, {useState, useReducer, createContext } from 'react';
+import React, { useState, useReducer, createContext } from 'react';
 import uuid from 'uuid/v4';
 import './App.css';
 import { filterReducer, todoReducer } from './redux/reducer';
@@ -28,17 +28,23 @@ const initialTodos = [
   },
 ];
 
- export const DispatchContext = createContext(null);
+export const DispatchContext = createContext(null);
 
 const App = () => {
- 
+
   const [filter, dispatchFilter] = useReducer(filterReducer, 'ALL');
   const [todos, dispatchTodos] = useReducer(todoReducer, initialTodos);
 
-const dispatch = action =>
-[dispatchTodos, dispatchFilter].forEach(fn => fn(action));
+  //Global dispatch function
+  const dispatch = action =>
+    [dispatchTodos, dispatchFilter].forEach(fn => fn(action));
 
+  // Global state
 
+  const state = {
+    filter,
+    todos,
+  };
 
   const filteredTodos = todos.filter(todo => {
     if (filter === 'ALL') {
@@ -56,9 +62,9 @@ const dispatch = action =>
 
   return (
     <DispatchContext.Provider value={dispatch}>
-     <Filter />
-     <TodoList todos={filteredTodos}/>
-     <AddTodo />
+      <Filter />
+      <TodoList todos={filteredTodos} />
+      <AddTodo />
     </DispatchContext.Provider>
   );
 }
